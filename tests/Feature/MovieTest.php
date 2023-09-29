@@ -30,7 +30,6 @@ class MovieTeste extends TestCase
     public function test_the_endpoint_maxMinWinIntervalForProducers_return_valid_data()
     {
         $response = $this->get('api/movies/max-min-win-interval-for-producers')->json();
-
         $this->assertArrayHasKey('min', $response);
         $this->assertArrayHasKey('max', $response);
     }
