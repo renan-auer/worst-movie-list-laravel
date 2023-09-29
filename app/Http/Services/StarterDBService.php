@@ -11,7 +11,6 @@ class StarterDBService
 {
     static function populateWithData()
     {
-        error_log("iniciou");
         //Delete all database content
         Studio::truncate();
         Producer::truncate();
