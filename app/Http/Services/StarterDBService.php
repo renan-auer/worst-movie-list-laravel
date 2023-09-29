@@ -11,6 +11,7 @@ class StarterDBService
 {
     static function populateWithData()
     {
+        error_log("iniciou");
         //Delete all database content
         Studio::truncate();
         Producer::truncate();
@@ -34,6 +35,7 @@ class StarterDBService
         $studiosToSave = [];
         foreach ($movieArray as $value) {
             $studiosColumn = explode(";", $value)[2];
+            $studiosColumn = str_replace(" and ", ",", $studiosColumn);
             $studiosArray = explode(",", $studiosColumn);
             foreach ($studiosArray as $studioName) {
                 $studioName = trim($studioName, ' ');
@@ -50,6 +52,7 @@ class StarterDBService
         $producersToSave = [];
         foreach ($movieArray as $value) {
             $producersColumn = explode(";", $value)[3];
+            $producersColumn = str_replace(" and ", ",", $producersColumn);
             $producersArray = explode(",", $producersColumn);
             foreach ($producersArray as $producerName) {
                 $producerName = trim($producerName, ' ');
@@ -73,9 +76,8 @@ class StarterDBService
                 'title' => $movieToSave[1],
                 'winner' => $movieToSave[4] == 'yes'
             ));
-
-            $idsProducers = StarterDBService::getIds($producers, explode(",", $movieToSave[2]));
-            $idsStudios = StarterDBService::getIds($studios, explode(",", $movieToSave[3]));
+            $idsProducers = StarterDBService::getIds($producers, explode(",", str_replace(" and ", ",", $movieToSave[3])));
+            $idsStudios = StarterDBService::getIds($studios, explode(",", str_replace(" and ", ",", $movieToSave[2])));
 
             $movie->producers()->sync($idsProducers);
             $movie->studios()->sync($idsStudios);
@@ -86,6 +88,7 @@ class StarterDBService
     {
         $ids = [];
         foreach ($listToWithNames as $name) {
+            $name = trim($name);
             $key = array_search($name, array_column($allList, 'name'));
             array_push($ids, $allList[$key]['id']);
         }

@@ -22,4 +22,8 @@ class Movie extends Model
     public function studios() {
         return $this->belongsToMany(Studio::class);
     }
+
+    public function wasProducedByProducer($producer) {
+        return array_search($producer->id, array_column($this->producers->toArray(), "id")) !== false;
+    }
 }
