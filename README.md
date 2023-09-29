@@ -42,7 +42,7 @@ O endpoint implementado está disponível no seguinte endereço:
 http://localhost:8000/api/movies/max-min-win-interval-for-producers
 ```
 
-Caso deseje testar com outro arquivo CSV, altere substitua o arquivo localizado em:
+Caso deseje testar com outro arquivo CSV, substitua o arquivo localizado em:
 
 ```bash
 .\storage\app\movielist.csv
